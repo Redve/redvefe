@@ -1,0 +1,11 @@
+{
+  "name": "redve-fe",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./dist/<project>/browser",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "redve.se", "custom_domain": true }
+  ]
+}
