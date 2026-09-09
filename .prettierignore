@@ -1,0 +1,5 @@
+# Written by scripts/build-content.mjs on every build.
+src/generated/
+
+# Prose. A formatter should not be rewrapping blog posts.
+src/content/

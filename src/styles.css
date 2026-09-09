@@ -1,3 +1,235 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and other style files */
 
 @import 'tailwindcss';
+
+:root {
+  --bright-blue: oklch(51.01% 0.274 263.83);
+  --electric-violet: oklch(53.18% 0.28 296.97);
+  --french-violet: oklch(47.66% 0.246 305.88);
+  --vivid-pink: oklch(69.02% 0.277 332.77);
+  --hot-red: oklch(61.42% 0.238 15.34);
+  --orange-red: oklch(63.32% 0.24 31.68);
+
+  /* Where the thread hands off from the portrait ring to the feed spine. Both
+     sides meet on this value, so the line reads as one continuous run. */
+  --pink-violet-mid: oklch(64% 0.278 315);
+
+  --gray-900: oklch(19.37% 0.006 300.98);
+  --gray-700: oklch(36.98% 0.014 302.71);
+  --gray-500: oklch(55% 0.014 303);
+  --gray-400: oklch(70.9% 0.015 304.04);
+  --gray-200: oklch(91% 0.008 303);
+  --gray-100: oklch(96% 0.005 303);
+
+  --page-bg: oklch(100% 0 0);
+
+  --thread-above: linear-gradient(180deg, var(--orange-red) 0%, var(--vivid-pink) 100%);
+  --thread-below: linear-gradient(180deg, var(--vivid-pink) 0%, var(--pink-violet-mid) 100%);
+  --thread-feed: linear-gradient(180deg, var(--pink-violet-mid) 0%, var(--electric-violet) 100%);
+
+  --sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --display:
+    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Horizontal position of the thread. The portrait, the feed spine and every
+     post node all read from this, so they stay on one axis at any width. */
+  --rail-x: 50%;
+  --portrait-size: 8rem;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--gray-700);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------------
+   Rendered markdown.
+
+   These live in the global sheet on purpose. Post bodies are inserted
+   with [innerHTML], and Angular's view encapsulation rewrites component
+   styles to match an attribute it never adds to dynamically inserted
+   nodes — so component-scoped rules simply would not apply. Everything
+   here is namespaced under .prose, which only the post page uses.
+   --------------------------------------------------------------- */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+}
+
+.prose > * {
+  margin-block: 0 1.35rem;
+}
+
+.prose > *:last-child {
+  margin-bottom: 0;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--gray-900);
+  margin-top: 2.75rem;
+  margin-bottom: 0.85rem;
+  text-wrap: balance;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+}
+
+.prose h4 {
+  font-size: 1.0625rem;
+}
+
+/* Underlined, not colour-only — colour alone is not a usable link cue. */
+.prose a {
+  color: var(--french-violet);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--french-violet) 35%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.prose a:hover {
+  text-decoration-color: currentColor;
+}
+
+.prose strong {
+  color: var(--gray-900);
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.35rem;
+}
+
+/* Tailwind's preflight clears list markers globally, so prose restores them. */
+.prose ul {
+  list-style: disc outside;
+}
+
+.prose ol {
+  list-style: decimal outside;
+}
+
+.prose li::marker {
+  color: var(--gray-400);
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+.prose li:last-child {
+  margin-bottom: 0;
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding: 0.15rem 0 0.15rem 1.25rem;
+  border-left: 2px solid var(--vivid-pink);
+  color: var(--gray-500);
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-block: 2rem;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--gray-100);
+  border-radius: 4px;
+  padding: 0.12em 0.36em;
+}
+
+.prose pre {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* Tables scroll inside their own box so the page never moves sideways. */
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.55rem 0.9rem 0.55rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.prose th {
+  color: var(--gray-900);
+  font-weight: 600;
+}
+
+.prose hr {
+  height: 1px;
+  border: 0;
+  background: var(--gray-200);
+  margin-block: 2.5rem;
+}
+
+@media screen and (max-width: 650px) {
+  :root {
+    --rail-x: 3rem;
+    --portrait-size: 4.5rem;
+  }
+
+  .prose {
+    font-size: 1rem;
+  }
+}
