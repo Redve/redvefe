@@ -1,10 +1,10 @@
-name: NPM Jobs
+name: validate
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches-ignore:
+      - 'main'
     paths:
       - 'src/**'
-
 jobs:
   format:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx prettier --check src/
-  lint:
+  linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,4 +25,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx prettier --check src/
+      - run: npx eslint src/
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
