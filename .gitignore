@@ -29,3 +29,6 @@ yarn-error.log*
 
 .DS_Store
 
+
+# Generated from src/content/posts by scripts/build-content.mjs
+/src/generated/

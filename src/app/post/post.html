@@ -1,0 +1,22 @@
+<div class="page">
+  <a class="back" routerLink="/">
+    <span class="back-node" aria-hidden="true"></span>
+    Redve
+  </a>
+
+  @if (post) {
+    <article>
+      <header class="post-header">
+        <p class="post-meta">
+          <time [attr.datetime]="post.date">{{ post.dateLabel }}</time>
+          <span aria-hidden="true">&middot;</span>
+          {{ post.readingMinutes }} min read
+        </p>
+        <h1>{{ post.title }}</h1>
+      </header>
+
+      <!-- Built from our own markdown at build time, never from user input. -->
+      <div class="prose" [innerHTML]="body"></div>
+    </article>
+  }
+</div>

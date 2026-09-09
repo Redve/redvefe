@@ -1,14 +1,10 @@
 name: Deploy
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches-ignore:
+      - 'main'
     paths:
       - 'src/**'
-
-concurrency:
-  group: deploy
-  cancel-in-progress: false
-
 jobs:
   deploy:
     runs-on: ubuntu-latest

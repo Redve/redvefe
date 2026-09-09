@@ -4,9 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prestart": "npm run content",
     "build": "ng build",
+    "prebuild": "npm run content",
     "watch": "ng build --watch --configuration development",
+    "prewatch": "npm run content",
     "test": "ng test",
+    "content": "node scripts/build-content.mjs",
     "serve:ssr:redvefe": "node dist/redvefe/server/server.mjs"
   },
   "private": true,
@@ -32,6 +36,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "jsdom": "^28.0.0",
+    "marked": "^18.0.12",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.12",
